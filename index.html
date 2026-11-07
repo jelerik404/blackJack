@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Black Jack Plus</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+    <h1>Speciálně okořeněný Black Jack</h1>
+
+    <p><strong>Váš zůstatek:</strong><span id="balanceText">1000</span> Kč</p>
+    <p><strong>Aktuální sázka:</strong><span id="betText">0</span> Kč</p>
+    <hr>
+
+    <h2>Cíl tohoto kola: <span id="goalText">?</span></h2>
+    <p id="ruleText"></p>
+    <hr>
+
+    <div id="betting">
+        <h3>Zvolte sázku (po kliknutí se rozdají karty):</h3>
+        <button id="btn10" onclick="bet(10)">Vsadit 10 Kč</button>
+        <button id="btn20" onclick="bet(20)">Vsadit 20 Kč</button>
+        <button id="btn50" onclick="bet(50)">Vsadit 50 Kč</button>
+        <button id="btn100" onclick="bet(100)">Vsadit 100 Kč</button>
+        <button id="btn200" onclick="bet(200)">Vsadit 200 Kč</button>
+        <button id="btnAllIn" onclick="betAllIn()">ALL IN</button>
+    </div>
+
+    <h3>Karty dealera:</h3>
+    <p>Karty: <span id="dealerCardsText">-</span> </p>
+    <p>Součet karet dealera: <span id="dealerSumText">0</span> </p>
+
+    <h3>Vaše karty:</h3>
+    <p>Karty: <span id="playerCardsText">-</span> </p>
+    <p>Součet Vašich karet: <span id="playerSumText">0</span> </p>
+
+    <div id="gameButtons">
+        <button id="btnNextCard" onclick="nextCard()" disabled>Hit</button>
+        <button id="btnStand" onclick="stand()" disabled>Stand</button>
+        <button id="btnDouble" onclick="double()" disabled>Double</button>
+        <button id="btnNewRound" onclick="setNewRound()" disabled>Další kolo</button>
+    </div>
+
+    <h2 id="messageText"></h2>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
