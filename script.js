@@ -145,3 +145,76 @@ function sumCounter(cards){
 
     return sum;
 }
+
+function nextCard(){
+    playerCards.push(hitCard());
+    updateDisplay();
+    checkPlayerState();
+}
+
+function checkPlayerState(){
+    let playerSum = sumCounter(playerCards);
+
+    if (playerSum === goal && playerCards.length === leastCardsBJ){
+        dealersHidden = false;
+        updateDisplay();
+
+        let win = currentBet + (currentBet * 1.5);
+        balance = balance + win;
+
+        document.getElementById("messageText").innerText =
+            "BLACK JACK. Dosáhl jsi cíle " + goal + " na nejmenší počet karet (" + leastCardsBJ + "). Výhra: " + win + " Kč";
+        endRound();
+        return;
+    }
+
+    if(playerSum > goal){
+        dealersHidden  = false;
+        updateDisplay();
+
+        document.getElementById("messageText").innerText =
+            "BUST! Ty jsi kopyto xd. Přestřelil jsi cíl o " + (playerSum - goal) + ".";
+
+        endRound();
+        return;
+    }
+
+    if(playerSum === goal){
+        stand();
+    }
+}
+
+function stand(){
+    dealersHidden = false;
+
+    while(sumCounter(dealerCards) < (goal - 4) ){
+        dealerCards.push(hitCard());
+    }
+
+    updateDisplay();
+
+    let playerSum = sumCounter(playerCards);
+    let dealerSum = sumCounter(dealerCards);
+    let win = 0;
+
+    if(dealerSum > goal){
+        win = currentBet * 2;
+        balance = balance + win;
+        document.getElementById("messageText").innerText =
+            "Dealer přestřelil cíl o " + (dealerSum - goal) + ". Výhra: " + win + " Kč";
+    } else if(playerSum > dealerSum){
+        win = currentBet * 2;
+        balance = balance + win;
+        document.getElementById("messageText").innerText =
+            "Pěkně Šéfe! Jsi blíž k cíli než dealer. Výhra: " + win + " Kč";
+    }else if(dealerSum > playerSum){
+        document.getElementById("messageText").innerText =
+            "HAHAHAHA ty lopato, dealer vyhrál (byl blíž k cíli). Prohrál jsi " + currentBet + " Kč";
+    }else{
+        balance = balance + currentBet;
+        document.getElementById("messageText").innerText =
+            "PUSH! Chytej svých " + currentBet + "Kč (tvoje sázka)";
+    }
+
+    endRound();
+}
