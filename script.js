@@ -218,3 +218,56 @@ function stand(){
 
     endRound();
 }
+
+function double(){
+    if(currentBet * 2 > balance){
+        document.getElementById("messageText").innerText = "Nemáš dostatek finančních prostředků.";
+        document.getElementById("btnDouble").disabled = true;
+    }else{
+        currentBet = currentBet * 2;
+        nextCard();
+        stand();
+    }
+}
+
+function updateDisplay(){
+    let playerText = "";
+
+    for(let i = 0; i < playerCards.length; i++){
+        playerText = playerText +  playerCards[i].display + "  ";
+    }
+
+    document.getElementById("playerCardsText").innerText = playerText;
+    document.getElementById("playerSumText").innerText = sumCounter(playerCards);
+
+    if(dealersHidden === true){
+        document.getElementById("dealerCardsText").innerText = dealerCards[0].display + "  [?]";
+        document.getElementById("dealerSumText").innerText = sumCounter([dealerCards[0]]) + " + ?";
+    } else {
+        let dealerText = "";
+        for (let i = 0; i < dealerCards.length; i++){
+            dealerText = dealerText + dealerCards[i].display + "  ";
+        }
+        document.getElementById("dealerCardsText").innerText = dealerText;
+        document.getElementById("dealerSumText").innerText = sumCounter(dealerCards);
+    }
+}
+
+function endRound(disable){
+    document.getElementById("balanceText").innerText = balance;
+    document.getElementById("btnNextCard").disabled = true;
+    document.getElementById("btnStand").disabled = true;
+    document.getElementById("btnDouble").disabled = true;
+    document.getElementById("btnNewRound").disabled = false;
+}
+
+function setBetButtons(disable){
+    document.getElementById("btn10").disabled = disable;
+    document.getElementById("btn20").disabled = disable;
+    document.getElementById("btn50").disabled = disable;
+    document.getElementById("btn100").disabled = disable;
+    document.getElementById("btn200").disabled = disable;
+    document.getElementById("btnAllIn").disabled = disable;
+}
+
+setNewRound();
